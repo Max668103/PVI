@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Max Skydanchuk">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/students.css">
+    <title>Students</title>
+    <script src="js/students.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <header>
+        <h1>CMS</h1>
+        <div class="notification">
+            <a href="messages.html">
+                <img src="images/bell.png" alt="Bell Icon">
+            </a>
+            <div class="newMessages" id="circle"></div>
+        </div>
+        <div class="profile">
+            <img src="images/avatar_max.jpg">
+            <p>Max Skydanchuk</p>
+            <div class="profile-menu">
+                <a href="#">Profile</a>
+                <a href="#">Log out</a>
+            </div>
+        </div>
+    </header>
+    <aside id="students">
+        <nav>
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="students.html">Students</a></li>
+                <li><a href="tasks.html">Tasks</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <h1>Students page</h1>
+        <div class="addStudent">
+            <button class="openButton" onclick="openModal()">+ Add student</button>
+            <div class="ModalWindow" id="myModal">
+                <header>
+                    <p>Add student</p>
+                    <button>x</button>
+                </header>
+                <div class="body">
+                    <label>Group</label>
+                    <select id="group">
+                        <option value="">Select group</option>
+                        <option value="PZ-21">PZ-21</option>
+                        <option value="PZ-22">PZ-22</option>
+                        <option value="PZ-23">PZ-23</option>
+                        <option value="PZ-24">PZ-24</option>
+                        <option value="PZ-25">PZ-25</option>
+                        <option value="PZ-26">PZ-26</option>
+                    </select>
+                    <label>First name</label>
+                    <input type="text" id="firstName">
+                    <label>Last name</label>
+                    <input type="text" id="lastName">
+                    <label>Gender</label>
+                    <select id="gender">
+                        <option value="">Select gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <label>Birthday</label>
+                    <input type="date" id="birthday">
+                </div>
+                <footer>
+                    <button onclick="addStudent()">Add</button>
+                    <button class="close-me" onclick="closeModal()">Close</button>
+                </footer>
+            </div>
+        </div>
+        <div class="table">
+            <table id="tableOfStudents">
+                <tr>
+                    <th class="checkboxColumn"><input type="checkbox" id="mainCheckbox" onclick="checkAll()"></th>
+                    <th>Group</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Birthday</th>
+                    <th>Status</th>
+                    <th>Options</th>
+                </tr>
+            </table>
+            <div class="modalWindowDelete" id="myModalDelete">
+                <header>
+                    <p> Delete student</p>
+                    <button>x</button>
+                </header>
+                <div>
+                    <img src="images/warning-sign.png">
+                    <p>Do you want to delete </p>
+                </div>
+                <footer>
+                    <button class="deleteCancel">Cancel</button>
+                    <button class="deleteOk">Ok</button>
+                </footer>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
