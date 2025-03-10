@@ -10,7 +10,7 @@ class Student {
 
 let listOfStudents = [];
 
-function addStudent() {
+function addStudent(check) {
     let group = document.getElementById("group").value;
     let firstName = document.getElementById("firstName").value;
     let lastName = document.getElementById("lastName").value;
@@ -18,8 +18,14 @@ function addStudent() {
     let birthday = document.getElementById("birthday").value;
 
     if (!firstName || !lastName || !birthday || group == "" || gender == "") {
-        window.alert("Please fill in all fields!");
-        return;
+        if (check) {
+            window.alert("Please fill in all fields!");
+            return;
+        }
+        else {
+            closeModal();
+            return;
+        }
     }
 
     let newStudent = new Student(group, firstName, lastName, gender, birthday);
@@ -59,8 +65,12 @@ function updateTable() {
             <td><div class="activeStatus"></div></td>
             <td>
                 <div class="button-group">
-                    <button class="edit-button" onclick="editStudent(${index})">✏️</button>
-                    <button onclick="deleteStudent(${index})">❌</button>
+                    <button class="edit-button" onclick="editStudent(${index})">
+                        <img src="./images/pencil.png">
+                    </button>
+                    <button onclick="deleteStudent(${index})">
+                        <img src="./images/cross.png">
+                    </button>
                 </div>
             </td>
         `;
@@ -120,9 +130,9 @@ function openDeleteModal(indexesToDelete, studentsToDelete) {
     message.innerHTML = `Do you want to delete <strong>${studentsToDelete.join(", ")}</strong>?`;
 
     document.querySelector(".modalWindowDelete header button").onclick = closeDeleteModal;
-    document.querySelector(".modalWindowDelete footer .deleteCancel").onclick = closeDeleteModal;
+    document.querySelector(".modalWindowDelete footer .disable").onclick = closeDeleteModal;
 
-    let okButton = document.querySelector(".modalWindowDelete footer .deleteOk");
+    let okButton = document.querySelector(".modalWindowDelete footer .active");
     okButton.onclick = function() {
         confirmDelete(indexesToDelete);
     };
@@ -145,11 +155,11 @@ function closeDeleteModal() {
 
 function openModal() {
     document.getElementById("myModal").style.display = "block";
-    document.querySelector("#myModal header p").textContent = "Add student";
+    document.querySelector("#myModal header h1").textContent = "Add student";
 }
 
 function openModalForEdit() {
-    document.querySelector("#myModal header p").textContent = "Edit student";
+    document.querySelector("#myModal header h1").textContent = "Edit student";
     document.getElementById("myModal").style.display = "block";
 }
 

@@ -16,8 +16,31 @@
         <div class="notification">
             <a href="messages.html">
                 <img src="images/bell.png" alt="Bell Icon">
+                <div class="newMessages" id="circle"></div>
             </a>
-            <div class="newMessages" id="circle"></div>
+            <div class="threeNewMessages">
+                <div class="message">
+                    <img src="images/avatar_max.jpg" class="avatar">
+                    <div class="message-content">
+                        <p class="username">User name</p>
+                        <p class="text">Text message</p>
+                    </div>
+                </div>
+                <div class="message">
+                    <img src="images/avatar_max.jpg" class="avatar">
+                    <div class="message-content">
+                        <p class="username">User name</p>
+                        <p class="text">Text message</p>
+                    </div>
+                </div>
+                <div class="message">
+                    <img src="images/avatar_max.jpg" class="avatar">
+                    <div class="message-content">
+                        <p class="username">User name</p>
+                        <p class="text">Text message</p>
+                    </div>
+                </div>
+            </div>            
         </div>
         <div class="profile">
             <img src="images/avatar_max.jpg">
@@ -43,8 +66,8 @@
             <button class="openButton" onclick="openModal()">+ Add student</button>
             <div class="ModalWindow" id="myModal">
                 <header>
-                    <p>Add student</p>
-                    <button>x</button>
+                    <h1 class="modalH">Add student</h1>
+                    <button class="buttonX" onclick="closeModal()">x</button>
                 </header>
                 <div class="body">
                     <label>Group</label>
@@ -71,8 +94,8 @@
                     <input type="date" id="birthday">
                 </div>
                 <footer>
-                    <button onclick="addStudent()">Add</button>
-                    <button class="close-me" onclick="closeModal()">Close</button>
+                    <button class="disable" onclick="addStudent(false)">Ok</button>
+                    <button class="active" onclick="addStudent(true)">Create</button>
                 </footer>
             </div>
         </div>
@@ -90,18 +113,25 @@
             </table>
             <div class="modalWindowDelete" id="myModalDelete">
                 <header>
-                    <p> Delete student</p>
-                    <button>x</button>
+                    <h1 class="modalH"> Delete student</h1>
+                    <button class="buttonX">x</button>
                 </header>
                 <div>
                     <img src="images/warning-sign.png">
                     <p>Do you want to delete </p>
                 </div>
                 <footer>
-                    <button class="deleteCancel">Cancel</button>
-                    <button class="deleteOk">Ok</button>
+                    <button class="disable">Cancel</button>
+                    <button class="active">Ok</button>
                 </footer>
             </div>
+        </div>
+        <div class="pages">
+            <button class="arrow left">&laquo;</button>
+            <button class="page-number">1</button>
+            <button class="page-number">2</button>
+            <button class="page-number">3</button>
+            <button class="arrow right">&raquo;</button>
         </div>
     </main>
 </body>
