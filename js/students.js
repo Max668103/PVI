@@ -40,7 +40,7 @@ function updateTable() {
     
     table.innerHTML = `
         <tr>
-            <th class="checkboxColumn"><input type="checkbox" id="mainCheckbox" onclick="checkAll()" title="Click All"></th>
+            <th class="checkboxColumn" aria-label="Checkboxes"><input type="checkbox" id="mainCheckbox" onclick="checkAll()" title="Click All"></th>
             <th>Group</th>
             <th>Name</th>
             <th>Gender</th>
@@ -57,7 +57,7 @@ function updateTable() {
         let fullName = `${student.firstName} ${student.lastName}`;
 
         row.innerHTML = `
-            <td class="checkboxColumn"><input type="checkbox" title="Click this" class="studentCheckbox"></td>
+            <td class="checkboxColumn" aria-label="Checkboxes"><input type="checkbox" title="Click this" class="studentCheckbox"></td>
             <td>${student.group}</td>
             <td>${fullName}</td>
             <td>${student.gender}</td>

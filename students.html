@@ -71,7 +71,7 @@
                 </header>
                 <div class="body">
                     <label>Group</label>
-                    <select id="group">
+                    <select id="group" title="Group">
                         <option value="">Select group</option>
                         <option value="PZ-21">PZ-21</option>
                         <option value="PZ-22">PZ-22</option>
@@ -81,17 +81,17 @@
                         <option value="PZ-26">PZ-26</option>
                     </select>
                     <label>First name</label>
-                    <input type="text" id="firstName">
+                    <input type="text" id="firstName" title="First name">
                     <label>Last name</label>
-                    <input type="text" id="lastName">
+                    <input type="text" id="lastName" title="Last name">
                     <label>Gender</label>
-                    <select id="gender">
+                    <select id="gender" title="Gender">
                         <option value="">Select gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
                     <label>Birthday</label>
-                    <input type="date" id="birthday">
+                    <input type="date" id="birthday" title="Birthday">
                 </div>
                 <footer>
                     <button class="disable" onclick="addStudent(false)">Ok</button>
@@ -102,7 +102,7 @@
         <div class="table">
             <table id="tableOfStudents">
                 <tr>
-                    <th class="checkboxColumn"><input type="checkbox" id="mainCheckbox" onclick="checkAll()" title="Click All"></th>
+                    <th class="checkboxColumn" aria-label="Checkboxes"><input type="checkbox" id="mainCheckbox" onclick="checkAll()" title="Click All"></th>
                     <th>Group</th>
                     <th>Name</th>
                     <th>Gender</th>
