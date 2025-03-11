@@ -7,7 +7,6 @@ main {
         "pages";
     grid-template-rows: 70px 70px 370px 1fr;
     grid-template-columns: 1fr;
-    background-color:rgb(222, 237, 251);
 }
 
 main h1 {

@@ -8,11 +8,10 @@
     <link rel="stylesheet" href="css/students.css">
     <title>Students</title>
     <script src="js/students.js"></script>
-    <script src="js/main.js"></script>
 </head>
 <body>
     <header>
-        <h1>CMS</h1>
+        <h1 class="mainHeader"><a href="students.html">CMS</a></h1>
         <div class="notification">
             <a href="messages.html">
                 <img src="images/bell.png" alt="Bell Icon">
@@ -20,21 +19,21 @@
             </a>
             <div class="threeNewMessages">
                 <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar">
+                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
                     <div class="message-content">
                         <p class="username">User name</p>
                         <p class="text">Text message</p>
                     </div>
                 </div>
                 <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar">
+                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
                     <div class="message-content">
                         <p class="username">User name</p>
                         <p class="text">Text message</p>
                     </div>
                 </div>
                 <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar">
+                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
                     <div class="message-content">
                         <p class="username">User name</p>
                         <p class="text">Text message</p>
@@ -43,15 +42,16 @@
             </div>            
         </div>
         <div class="profile">
-            <img src="images/avatar_max.jpg">
+            <img src="images/avatar_max.jpg" alt="Avatar">
             <p>Max Skydanchuk</p>
             <div class="profile-menu">
                 <a href="#">Profile</a>
-                <a href="#">Log out</a>
+                <button>Log out</button>
             </div>
         </div>
     </header>
-    <aside id="students">
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <aside id="students" class="toggleMenu">
         <nav>
             <ul>
                 <li><a href="index.html">Dashboard</a></li>
@@ -117,7 +117,7 @@
                     <button class="buttonX">x</button>
                 </header>
                 <div>
-                    <img src="images/warning-sign.png">
+                    <img src="images/warning-sign.png" alt="Warning">
                     <p>Do you want to delete </p>
                 </div>
                 <footer>
@@ -134,5 +134,6 @@
             <button class="arrow right">&raquo;</button>
         </div>
     </main>
+    <script src="js/main.js"></script>
 </body>
 </html>

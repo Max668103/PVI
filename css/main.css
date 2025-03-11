@@ -3,11 +3,13 @@ body {
     margin: 0;
     display: grid;
     grid-template-areas: 
-    "header header"
-    "aside main";
+        "header header"
+        "aside main";
     grid-template-rows: 60px 1fr;
     grid-template-columns: 150px 1fr;
     height: 100vh;
+    
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 header {
@@ -19,10 +21,20 @@ header {
     color: white;
 }
 
-header h1 {
+header .mainHeader{
     flex-grow: 1;
     margin-left: 20px;
     font-size: 25px;
+}
+
+header .mainHeader a{
+    text-decoration: none;
+    color: white;
+    cursor:pointer;
+}
+
+header .mainHeader a:hover {
+    color:white;
 }
 
 .notification, .profile {
@@ -43,7 +55,7 @@ header h1 {
     transition: 0.3s ease-in-out;
 }
 
-.notification a img:hover{
+.start-shake {
     animation: shake 0.5s ease-in-out 3 alternate;
 }
 
@@ -55,7 +67,7 @@ header h1 {
 .notification .newMessages {
     position: absolute;
     top: 10px;
-    right: 0px;
+    right: 0;
     width: 10px;
     height: 10px;
     background-color: red;
@@ -65,12 +77,6 @@ header h1 {
     transform: scale(0.5);
     transition: 0.3s ease-in-out;
 }
-
-.notification a:hover .newMessages {
-    opacity: 1;
-    transform: scale(1);
-}
-
 
 .profile {
     width: 190px;
@@ -94,19 +100,50 @@ header h1 {
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 185px;
+    height:100px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 100;
+    cursor: auto;
+    font-size:16px;
 }
 
 .profile-menu a {
+    padding-left: 15px;
+    padding-top:10px;
     display: block;
-    padding: 10px;
+    height: 35px;
     text-decoration: none;
+    background-color: rgb(235, 235, 235);
     color: black;
+    cursor: pointer;
+    transition: 0.3s ease-in;
 }
 
 .profile-menu a:hover {
-    background: #f0f0f0;
+    background-color: #d7d7d7;
+}
+
+.profile-menu button {
+    height:40px;
+    width:90px;
+    margin-top:7.5px;
+    margin-left:47.5px;
+    border: 2px solid rgb(0, 0, 0, 0.6);
+    border-radius: 6px;
+    background-color: rgb(32, 77, 135);
+    color:white;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.3s ease-in;
+}
+
+.profile-menu button:hover {
+    background-color: rgb(58, 104, 165);
+}
+
+.profile-menu button:active {
+    background-color: rgb(18, 43, 75);
+    transform: scale(0.9);
 }
 
 .profile:hover .profile-menu {
@@ -122,6 +159,7 @@ header h1 {
 aside {
     background-color:rgb(32, 77, 135);
     grid-area: aside;
+    transition: transform 0.3s ease;
 }
 
 aside nav {
@@ -148,11 +186,31 @@ aside nav ul li a:hover {
     background-color: rgb(45, 89, 147);
 }
 
-aside#index nav ul li a[href="index.html"],
-aside#students nav ul li a[href="students.html"],
-aside#tasks nav ul li a[href="tasks.html"] {
+#index nav ul li a[href="index.html"],
+#students nav ul li a[href="students.html"],
+#tasks nav ul li a[href="tasks.html"] {
     background-color: rgb(18, 43, 75);
-    border-right: 5px solid rgba(120, 157, 221, 0.638);
+    border-right: 5px solid rgba(120, 157, 221, 0.6);
+}
+
+.menu-btn {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width:40px;
+    height:40px;
+    font-size: 30px;
+    background-color:rgb(32, 77, 135);
+    text-align: center;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.menu-btn:hover {
+    background-color: rgb(45, 89, 147);
 }
 
 main {
@@ -160,6 +218,7 @@ main {
     padding: 20px;
     background: white;
 }
+
 .threeNewMessages {
     position: absolute;
     top: 100%;
@@ -170,8 +229,9 @@ main {
     width: 250px;
     background: #f5f5f5;
     border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     padding: 10px;
-    gap: 10px;
+    gap:10px;
     transition: opacity 0.3s ease-in-out;
 }
 
@@ -206,5 +266,84 @@ main {
 .notification:hover .threeNewMessages {
     display:grid;
 }
+
+main {
+    background-color:rgb(222, 237, 251);
+}
+
+/* Для великих екранів */
+@media (max-width: 1920px) {
+    header .mainHeader{
+        font-size: 25px;
+    }
+}
+
+/* Для ноутбуків та середніх екранів */
+@media (max-width: 1440px) {
+    header .mainHeader{
+        font-size: 30px;
+    }
+    .notification .newMessages {
+        right: -6px;
+    }
+}
+
+/* Для планшетів */
+@media (max-width: 1024px) {
+    header .mainHeader{
+        font-size: 35px;
+    }
+    .notification .newMessages {
+        right: -16px;
+    }
+}
+
+/* Для смартфонів */
+@media screen and (max-width: 768px) {
+    body {
+        grid-template-areas: 
+            "header header"
+            "main main";
+    }
+
+    aside {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 150px;
+        margin-top:60px;
+        height: 100%;
+        transform: translateX(-100%);
+    }
+
+    .menu-btn {
+        display: block;
+        left: 0;
+        transition: left 0.24s ease-in-out;
+    }
+
+    aside.open {
+        transform: translateX(0);
+    }
+
+    .menu-btn.open {
+        left: 150px;
+    }
+    .notification .newMessages {
+        right: -20px;
+    }
+}
+
+/* Для маленьких мобільних пристроїв */
+@media (max-width: 520px) {
+    header .mainHeader{
+        font-size: 40px;
+        
+    }
+    .notification .newMessages {
+        right: -20px;
+    }
+}
+
 
 

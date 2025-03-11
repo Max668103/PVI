@@ -6,33 +6,32 @@
     <meta name="author" content="Max Skydanchuk">
     <link rel="stylesheet" href="css/main.css">
     <title>Students</title>
-    <script src="js/main.js"></script>
 </head>
 <body>
     <header>
-        <h1>CMS</h1>
+        <h1 class="mainHeader"><a href="students.html">CMS</a></h1>
         <div class="notification">
             <a href="messages.html">
                 <img src="images/bell.png" alt="Bell Icon">
+                <div class="newMessages" id="circle"></div>
             </a>
-            <div class="newMessages" id="circle"></div>
             <div class="threeNewMessages">
                 <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar">
+                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
                     <div class="message-content">
                         <p class="username">User name</p>
                         <p class="text">Text message</p>
                     </div>
                 </div>
                 <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar">
+                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
                     <div class="message-content">
                         <p class="username">User name</p>
                         <p class="text">Text message</p>
                     </div>
                 </div>
                 <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar">
+                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
                     <div class="message-content">
                         <p class="username">User name</p>
                         <p class="text">Text message</p>
@@ -41,15 +40,16 @@
             </div>            
         </div>
         <div class="profile">
-            <img src="images/avatar_max.jpg">
+            <img src="images/avatar_max.jpg" alt="Avatar">
             <p>Max Skydanchuk</p>
             <div class="profile-menu">
                 <a href="#">Profile</a>
-                <a href="#">Log out</a>
+                <button>Log out</button>
             </div>
         </div>
     </header>
-    <aside id="tasks">
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <aside id="tasks" class="toggleMenu">
         <nav>
             <ul>
                 <li><a href="index.html">Dashboard</a></li>
@@ -61,5 +61,6 @@
     <main>
         <h1>Tasksk page</h1>
     </main>
+    <script src="js/main.js"></script>
 </body>
 </html>

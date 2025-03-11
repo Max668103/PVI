@@ -66,10 +66,10 @@ function updateTable() {
             <td>
                 <div class="button-group">
                     <button class="edit-button" onclick="editStudent(${index})">
-                        <img src="./images/pencil.png">
+                        <img src="./images/pencil.png" alt="Pencil">
                     </button>
                     <button onclick="deleteStudent(${index})">
-                        <img src="./images/cross.png">
+                        <img src="./images/cross.png" alt="Cross">
                     </button>
                 </div>
             </td>
