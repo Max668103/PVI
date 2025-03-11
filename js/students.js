@@ -40,7 +40,10 @@ function updateTable() {
     
     table.innerHTML = `
         <tr>
-            <th class="checkboxColumn" aria-label="Checkboxes"><input type="checkbox" id="mainCheckbox" onclick="checkAll()" title="Click All"></th>
+            <th class="checkboxColumn" aria-label="Checkboxes">
+                <label for="mainCheckbox">Select All</label>
+                <input type="checkbox" id="mainCheckbox" onclick="checkAll()" title="Click All">
+            </th>
             <th>Group</th>
             <th>Name</th>
             <th>Gender</th>
