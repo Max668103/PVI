@@ -57,7 +57,7 @@ function updateTable() {
         let fullName = `${student.firstName} ${student.lastName}`;
 
         row.innerHTML = `
-            <td class="checkboxColumn"><input type="checkbox" class="studentCheckbox" title="Click this"></td>
+            <td class="checkboxColumn"><input type="checkbox" title="Click this" class="studentCheckbox"></td>
             <td>${student.group}</td>
             <td>${fullName}</td>
             <td>${student.gender}</td>
