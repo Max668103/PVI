@@ -38,50 +38,91 @@ function addStudent(check) {
 function updateTable() {
     let table = document.getElementById("tableOfStudents");
     
-    table.innerHTML = `
-        <tr>
-            <th class="checkboxColumn" aria-label="Checkboxes">
-                <label for="mainCheckbox"></label>
-                <input type="checkbox" id="mainCheckbox" onclick="checkAll()" title="Click All">
-            </th>
-            <th>Group</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Birthday</th>
-            <th>Status</th>
-            <th>Options</th>
-        </tr>
-    `;
+    table.innerHTML = "";
+    let headerRow = document.createElement("tr");
+    let headers = ["Checkboxes", "Group", "Name", "Gender", "Birthday", "Status", "Options"];
+    let headerCells = headers.map(text => {
+        let th = document.createElement("th");
+        if (text === "Checkboxes") {
+            let label = document.createElement("label");
+            label.setAttribute("for", "mainCheckbox");
+
+            let checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.id = "mainCheckbox";
+            checkbox.onclick = checkAll;
+            checkbox.title = "Click All";
+
+            th.appendChild(label);
+            th.appendChild(checkbox);
+            th.classList.add("checkboxColumn");
+            th.setAttribute("aria-label", "Checkboxes");
+        } else {
+            th.textContent = text;
+        }
+        return th;
+    });
+
+    headerCells.forEach(th => headerRow.appendChild(th));
+    table.appendChild(headerRow);
 
     let profileStudentName = document.querySelector(".profile p").textContent.trim();
 
     listOfStudents.forEach((student, index) => {
-        let row = table.insertRow(-1);
-        let fullName = `${student.firstName} ${student.lastName}`;
+        let row = document.createElement("tr");
 
-        row.innerHTML = `
-            <td class="checkboxColumn" aria-label="Checkboxes"><input type="checkbox" title="Click this" class="studentCheckbox"></td>
-            <td>${student.group}</td>
-            <td>${fullName}</td>
-            <td>${student.gender}</td>
-            <td>${student.birthday}</td>
-            <td><div class="activeStatus"></div></td>
-            <td>
-                <div class="button-group">
-                    <button class="edit-button" onclick="editStudent(${index})">
-                        <img src="./images/pencil.png" alt="Pencil">
-                    </button>
-                    <button onclick="deleteStudent(${index})">
-                        <img src="./images/cross.png" alt="Cross">
-                    </button>
-                </div>
-            </td>
-        `;
+        let checkboxTd = document.createElement("td");
+        checkboxTd.classList.add("checkboxColumn");
+        checkboxTd.setAttribute("aria-label", "Checkboxes");
 
-        let statusDiv = row.querySelector(".activeStatus");
-        if (fullName === profileStudentName) {
+        let studentCheckbox = document.createElement("input");
+        studentCheckbox.type = "checkbox";
+        studentCheckbox.classList.add("studentCheckbox");
+        studentCheckbox.title = "Click this";
+        checkboxTd.appendChild(studentCheckbox);
+        row.appendChild(checkboxTd);
+
+        let studentData = [student.group, `${student.firstName} ${student.lastName}`, student.gender, student.birthday];
+        studentData.forEach(text => {
+            let td = document.createElement("td");
+            td.textContent = text;
+            row.appendChild(td);
+        });
+
+        let statusTd = document.createElement("td");
+        let statusDiv = document.createElement("div");
+        statusDiv.classList.add("activeStatus");
+        if (`${student.firstName} ${student.lastName}` === profileStudentName) {
             statusDiv.style.backgroundColor = "green";
         }
+        statusTd.appendChild(statusDiv);
+        row.appendChild(statusTd);
+
+        let optionsTd = document.createElement("td");
+        let buttonGroup = document.createElement("div");
+        buttonGroup.classList.add("button-group");
+
+        let editButton = document.createElement("button");
+        editButton.classList.add("edit-button");
+        editButton.onclick = () => editStudent(index);
+        let editImg = document.createElement("img");
+        editImg.src = "./images/pencil.png";
+        editImg.alt = "Pencil";
+        editButton.appendChild(editImg);
+
+        let deleteButton = document.createElement("button");
+        deleteButton.onclick = () => deleteStudent(index);
+        let deleteImg = document.createElement("img");
+        deleteImg.src = "./images/cross.png";
+        deleteImg.alt = "Cross";
+        deleteButton.appendChild(deleteImg);
+
+        buttonGroup.appendChild(editButton);
+        buttonGroup.appendChild(deleteButton);
+        optionsTd.appendChild(buttonGroup);
+        row.appendChild(optionsTd);
+
+        table.appendChild(row);
     });
 }
 

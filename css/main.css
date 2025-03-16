@@ -332,12 +332,46 @@ main {
     .notification .newMessages {
         right: -20px;
     }
+
+    .profile p {
+        display: none;
+    }
+
+    .profile {
+        width: 80px;
+    }
+
+    .notification {
+        margin-right:50px;
+    }
+
+    .profile-menu {
+        left: -90%;
+        width: 140px;
+    }
+
+    .profile-menu button {
+        height:40px;
+        width:90px;
+        margin-top:7.5px;
+        margin-left:25px;
+    }
+    .threeNewMessages {
+        top: 100%;
+        left: -90px;
+        width: 190px;
+    }
+
+    header .mainHeader{
+        font-size: 35px;
+        
+    }
 }
 
 /* Для маленьких мобільних пристроїв */
 @media (max-width: 520px) {
     header .mainHeader{
-        font-size: 40px;
+        font-size: 35px;
         
     }
     .notification .newMessages {

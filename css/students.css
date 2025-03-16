@@ -396,3 +396,46 @@ main .pages .arrow {
     background-color: rgba(0, 0, 0, 0.3);
     transform:scale(0.9);
 }
+
+/* Для смартфонів */
+@media screen and (max-width: 768px) {
+    .ModalWindow {
+        width:350px;
+    }
+    .ModalWindow .body {
+        grid-template-columns: 100px 250px;
+    }
+    .ModalWindow .body label {
+        margin-left:20px;
+    }
+
+    .ModalWindow .body input {
+        width: 190px;
+        max-width: 190px;
+    }
+
+    .ModalWindow .body select {
+        width: 190px;
+        max-width: 190px;
+    }
+
+    .modalWindowDelete {
+        width: 350px;
+    }
+    
+    .addStudent .openButton {
+        width: 125px;
+        height: 37px;
+        margin-top:10px;
+        font-size: 15px;
+    }
+
+    main h1 {
+        font-size:26px;
+        margin-top:30px;
+    }
+    
+    main .table {
+        font-size:14px;
+    }
+}
