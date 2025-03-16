@@ -46,17 +46,18 @@ function updateTable() {
         if (text === "Checkboxes") {
             let label = document.createElement("label");
             label.setAttribute("for", "mainCheckbox");
-
+            label.classList.add("sr-only");
+            label.textContent = "Select all";
+    
             let checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.id = "mainCheckbox";
             checkbox.onclick = checkAll;
             checkbox.title = "Click All";
-
+    
             th.appendChild(label);
             th.appendChild(checkbox);
             th.classList.add("checkboxColumn");
-            th.setAttribute("aria-label", "Checkboxes");
         } else {
             th.textContent = text;
         }
