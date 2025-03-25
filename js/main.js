@@ -8,3 +8,13 @@ setTimeout(() => {
     document.querySelector(".notification .newMessages").style.opacity = "1";
     document.querySelector(".notification .newMessages").style.transform = "scale(1)";
 }, 10000);
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker
+            .register("/sw.js")
+            .then(() => console.log("Service Worker registered"))
+            .catch((err) => console.error("Service Worker registration failed", err));
+    });
+}
+

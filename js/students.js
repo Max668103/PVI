@@ -35,6 +35,10 @@ function addStudent(check) {
     listOfStudents.push(newStudent);
     updateStudentIds();
 
+    console.log("Student added:", newStudent);
+    console.log("Updated list:", listOfStudents);
+
+
     updateTable();
     closeModal();
 }
@@ -192,6 +196,10 @@ function openDeleteModal(idsToDelete) {
 function confirmDelete(idsToDelete) {
     listOfStudents = listOfStudents.filter(student => !idsToDelete.includes(student.id.toString()));
 
+    console.log("Deleted student(s) IDs:", idsToDelete);
+    console.log("Updated list:", listOfStudents);
+
+
     updateStudentIds();
     updateTable();
     closeDeleteModal();
@@ -265,6 +273,9 @@ function saveStudent(id, check) {
     student.lastName = lastName;
     student.gender = gender;
     student.birthday = birthday;
+
+    console.log("Student updated:", student);
+    console.log("Updated list:", listOfStudents);
 
     updateTable();
     closeModal();
@@ -347,5 +358,6 @@ listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanch
 listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
 listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
 window.onload = function() {
+    updateStudentIds();
     updateTable();
 };
