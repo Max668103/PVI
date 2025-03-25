@@ -1,41 +1,38 @@
 // Ім'я кешу
 const CACHE_NAME = "pwa-cache-v1";
 
-// Отримуємо кореневий шлях (для підтримки GitHub Pages)
-const BASE_URL = self.location.origin;
-
 // Масив ресурсів для кешування
 const ASSETS = [
-  `${BASE_URL}/`,                      
-  `${BASE_URL}/index.html`,
-  `${BASE_URL}/messages.html`,
-  `${BASE_URL}/students.html`,
-  `${BASE_URL}/tasks.html`,
+  `./`,                      
+  `./index.html`,
+  `./messages.html`,
+  `./students.html`,
+  `./tasks.html`,
   
   // CSS файли
-  `${BASE_URL}/css/main.css`,
-  `${BASE_URL}/css/students.css`,
+  `./css/main.css`,
+  `./css/students.css`,
 
   // JavaScript файли
-  `${BASE_URL}/js/main.js`,
-  `${BASE_URL}/js/students.js`,
+  `./js/main.js`,
+  `./js/students.js`,
 
   // Зображення
-  `${BASE_URL}/images/avatar_max.jpg`,
-  `${BASE_URL}/images/bell.png`,
-  `${BASE_URL}/images/cross.png`,
-  `${BASE_URL}/images/pencil.png`,
-  `${BASE_URL}/images/warning-sign.png`,
+  `./images/avatar_max.jpg`,
+  `./images/bell.png`,
+  `./images/cross.png`,
+  `./images/pencil.png`,
+  `./images/warning-sign.png`,
 
   // Іконки з manifest.json
-  `${BASE_URL}/images/icon-128.png`,
-  `${BASE_URL}/images/icon-192.png`,
-  `${BASE_URL}/images/icon-256.png`,
-  `${BASE_URL}/images/icon-512.png`,
+  `./images/icon-128.png`,
+  `./images/icon-192.png`,
+  `./images/icon-256.png`,
+  `./images/icon-512.png`,
 
   // Скріншоти з manifest.json
-  `${BASE_URL}/images/screenshot1.png`,
-  `${BASE_URL}/images/screenshot2.png`
+  `./images/screenshot1.png`,
+  `./images/screenshot2.png`
 ];
 
 // Подія встановлення Service Worker
