@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/students.css">
     <title>Students</title>
-    <script src="js/students.js"></script>
 </head>
 <body>
     <header>
@@ -62,42 +61,66 @@
     </aside>
     <main>
         <h1>Students page</h1>
+        <div class="overlay" id="overlay" onclick="closeModal()"></div>
         <div class="addStudent">
             <button class="openButton" onclick="openModal()">+ Add student</button>
             <div class="ModalWindow" id="myModal">
-                <header>
-                    <h1 class="modalH">Add student</h1>
-                    <button class="buttonX" onclick="closeModal()">x</button>
-                </header>
-                <div class="body">
-                    <label>Group</label>
-                    <select id="group" title="Group">
-                        <option value="">Select group</option>
-                        <option value="PZ-21">PZ-21</option>
-                        <option value="PZ-22">PZ-22</option>
-                        <option value="PZ-23">PZ-23</option>
-                        <option value="PZ-24">PZ-24</option>
-                        <option value="PZ-25">PZ-25</option>
-                        <option value="PZ-26">PZ-26</option>
-                    </select>
-                    <label>First name</label>
-                    <input type="text" id="firstName" title="First name">
-                    <label>Last name</label>
-                    <input type="text" id="lastName" title="Last name">
-                    <label>Gender</label>
-                    <select id="gender" title="Gender">
-                        <option value="">Select gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                    <label>Birthday</label>
-                    <input type="date" id="birthday" title="Birthday">
-                </div>
-                <footer>
-                    <button class="disable" onclick="addStudent(false)">Ok</button>
-                    <button class="active" onclick="addStudent(true)">Create</button>
-                </footer>
-            </div>
+                <form id="studentForm" onsubmit="return false;">
+                    <header>
+                        <h1 class="modalH">Add student</h1>
+                        <button type="button" class="buttonX" onclick="closeModal()">x</button>
+                    </header>
+                    <div class="body">
+                        <input type="hidden" id="studentId" name="studentId">
+        
+                        <label for="group">Group</label>
+                        <div class="input-container">
+                            <select id="group" name="group" required>
+                                <option value="">Select group</option>
+                                <option value="PZ-21">PZ-21</option>
+                                <option value="PZ-22">PZ-22</option>
+                                <option value="PZ-23">PZ-23</option>
+                                <option value="PZ-24">PZ-24</option>
+                                <option value="PZ-25">PZ-25</option>
+                                <option value="PZ-26">PZ-26</option>
+                            </select>
+                            <span class="error-message" id="group-error">Please select a group</span>
+                        </div>
+
+                        <label for="firstName">First name</label>
+                        <div class="input-container">
+                            <input type="text" id="firstName" name="firstName" required pattern="[A-Za-z]+" title="First name should only contain letters">
+                            <span class="error-message" id="firstName-error">First name should contain only letters</span>
+                        </div>
+
+                        <label for="lastName">Last name</label>
+                        <div class="input-container">
+                            <input type="text" id="lastName" name="lastName" required pattern="[A-Za-z]+" title="Last name should only contain letters">
+                            <span class="error-message" id="lastName-error">Last name should contain only letters</span>
+                        </div>
+
+                        <label for="gender">Gender</label>
+                        <div class="input-container">
+                            <select id="gender" name="gender" required>
+                                <option value="">Select gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            <span class="error-message" id="gender-error">Please select a gender</span>
+                        </div>
+
+                        <label for="birthday">Birthday</label>
+                        <div class="input-container">
+                            <input type="date" id="birthday" name="birthday" required>
+                            <span class="error-message" id="birthday-error">Please enter a valid date</span>
+                        </div>
+                    </div>
+                    <footer>
+                        <button type="button" class="disable" onclick="addStudent(false)">Ok</button>
+                        <button type="button" class="active" onclick="addStudent(true)">Create</button>
+                    </footer>
+                </form>
+            </div>            
         </div>
         <div class="table">
             <table id="tableOfStudents">
@@ -138,5 +161,6 @@
         </div>
     </main>
     <script src="js/main.js"></script>
+    <script src="js/students.js"></script>
 </body>
 </html>

@@ -47,6 +47,17 @@ main h1 {
     transform: scale(0.9);
 }
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); 
+    display: none;
+    z-index: 10;
+}
+
 .ModalWindow {
     display: none;
     position: absolute; 
@@ -59,10 +70,11 @@ main h1 {
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
     border-radius: 3%;
     contain: content;
+    z-index: 20;
 }
 
 .ModalWindow header {
-    height: 50px;
+    height: 45px;
     background-color: rgb(222, 237, 251);
     display: flex; 
     justify-content: center; 
@@ -79,13 +91,12 @@ main h1 {
 .ModalWindow .body {
     display: grid;
     grid-template-columns: 150px 350px; 
-    gap: 10px 15px;
+    gap: 5px 15px;
     padding: 15px;
     background-color: white;
     border-radius: 8px;
-    height: 285px;
-    max-height: 285px;
     width: 100%;
+    max-height: 390px;
     box-sizing: border-box;
     align-items: center;
 }
@@ -93,10 +104,18 @@ main h1 {
 .ModalWindow .body label {
     font-weight: bold;
     text-align: left; 
-    margin-left:50px;
+    margin-left: 50px;
     font-size: 16px;
 }
 
+.input-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 50px; /* Мінімальна висота, щоб не зміщувати інші поля */
+}
+
+/* Інпути */
 .ModalWindow .body input,
 .ModalWindow .body select {
     border: 1px solid #ccc;
@@ -104,17 +123,32 @@ main h1 {
     padding: 6px;
     font-size: 14px;
     width: 250px;
-    max-width: 250px;
     background-color: white;
     transition: border-color 0.3s ease-in-out;
 }
 
+/* Фокус */
 .ModalWindow .body input:focus,
 .ModalWindow .body select:focus {
     border-color: #10447b;
     outline: none;
     box-shadow: 0 0 3px rgba(0, 123, 255, 0.3);
 }
+
+/* Червона рамка при помилці */
+.ModalWindow .body input.invalid, 
+.ModalWindow .body select.invalid {
+    border-color: red !important;
+}
+
+/* Помилка під полем */
+.error-message {
+    color: red;
+    font-size: 10px;
+    margin-top: 2px;
+    display: none;
+}
+
 
 
 main .table {
@@ -237,7 +271,7 @@ header .buttonX {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     cursor: pointer;
     width: 50px;
-    height: 50px;
+    height: 45px;
     background: transparent;
     border: none;
     position: absolute;
@@ -287,7 +321,7 @@ footer .active {
     background-color: transparent;
     height:35px;
     width:80px;
-    margin-top: 12px;
+    margin-top: 8px;
     cursor: pointer;
     text-align: center;
     transition: 0.3s ease-in;
@@ -404,7 +438,6 @@ main .pages .arrow {
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
     border: 0;
     white-space: nowrap;
 }
@@ -432,7 +465,7 @@ main .pages .arrow {
     }
 
     .modalWindowDelete {
-        width: 350px;
+        width: 330px;
     }
     
     .addStudent .openButton {
@@ -449,5 +482,32 @@ main .pages .arrow {
     
     main .table {
         font-size:14px;
+    }
+}
+
+/* Для маленьких мобільних пристроїв */
+@media (max-width: 520px) {
+    .ModalWindow {
+        width:300px;
+    }
+    .ModalWindow .body {
+        grid-template-columns: 100px 200px;
+    }
+    .ModalWindow .body label {
+        margin-left:10px;
+    }
+
+    .ModalWindow .body input {
+        width: 145px;
+        max-width: 145px;
+    }
+
+    .ModalWindow .body select {
+        width: 145px;
+        max-width: 145px;
+    }
+
+    .modalWindowDelete {
+        width: 300px;
     }
 }

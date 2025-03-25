@@ -206,7 +206,7 @@ aside nav ul li a:hover {
     color: white;
     border: none;
     cursor: pointer;
-    z-index: 1000;
+    z-index: 5;
 }
 
 .menu-btn:hover {
