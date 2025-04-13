@@ -10,6 +10,9 @@ class Student {
 }
 
 let listOfStudents = [];
+let currentPage = 1;
+const studentsPerPage = 7;
+
 
 function updateStudentIds() {
     listOfStudents.forEach((student, index) => {
@@ -21,8 +24,12 @@ function addStudent(check) {
     if (!validateForm()) {
         if (check) {
             window.alert("Please fill in all fields correctly!");
+            return;
         }
-        return;
+        else{
+            closeModal();
+            return;
+        }
     }
 
     let group = document.getElementById("group").value;
@@ -77,7 +84,15 @@ function updateTable() {
 
     let profileStudentName = document.querySelector(".profile p").textContent.trim();
 
-    listOfStudents.forEach(student => {
+    // Обчислюємо межі поточної сторінки
+    const startIndex = (currentPage - 1) * studentsPerPage;
+    const endIndex = startIndex + studentsPerPage;
+
+    // Фільтруємо студентів для цієї сторінки
+    const visibleStudents = listOfStudents.slice(startIndex, endIndex);
+
+    // Далі рендеримо лише visibleStudents
+    visibleStudents.forEach(student => {
         let row = document.createElement("tr");
         row.dataset.studentId = student.id;
 
@@ -134,6 +149,10 @@ function updateTable() {
 
         table.appendChild(row);
     });
+
+
+    updatePagination();
+
 }
 
 function clearForm() {
@@ -190,6 +209,7 @@ function openDeleteModal(idsToDelete) {
     };
 
     modal.style.display = "block";
+    document.getElementById("overlayDelete").style.display = "block";
 }
 
 
@@ -207,6 +227,7 @@ function confirmDelete(idsToDelete) {
 
 function closeDeleteModal() {
     document.getElementById("myModalDelete").style.display = "none";
+    document.getElementById("overlayDelete").style.display = "none";
 }
 
 function openModal() {
@@ -257,8 +278,12 @@ function saveStudent(id, check) {
     if (!validateForm()) {
         if (check) {
             window.alert("Please fill in all fields correctly!");
+            return;
         }
-        return;
+        else{
+            closeModal();
+            return;
+        }
     }
 
     let group = document.getElementById("group").value;
@@ -345,6 +370,74 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
+
+
+
+
+function updatePagination() {
+    const totalPages = Math.ceil(listOfStudents.length / studentsPerPage);
+    const paginationContainer = document.querySelector(".pages");
+  
+    paginationContainer.innerHTML = "";
+  
+    // Стрілка назад
+    const prevBtn = document.createElement("button");
+    prevBtn.className = "arrow left";
+    prevBtn.innerHTML = "&laquo;";
+    prevBtn.disabled = currentPage === 1;
+    prevBtn.onclick = () => {
+      currentPage--;
+      updateTable();
+    };
+    paginationContainer.appendChild(prevBtn);
+  
+    // Кнопки сторінок
+    for (let i = 1; i <= totalPages; i++) {
+      const pageBtn = document.createElement("button");
+      pageBtn.className = "page-number";
+      pageBtn.textContent = i;
+      if (i === currentPage) pageBtn.disabled = true;
+  
+      pageBtn.onclick = () => {
+        currentPage = i;
+        updateTable();
+      };
+      paginationContainer.appendChild(pageBtn);
+    }
+  
+    // Стрілка вперед
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "arrow right";
+    nextBtn.innerHTML = "&raquo;";
+    nextBtn.disabled = currentPage === totalPages;
+    nextBtn.onclick = () => {
+      currentPage++;
+      updateTable();
+    };
+    paginationContainer.appendChild(nextBtn);
+  }
+
+
+
+
+
+
+
+
+
+listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
+listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
+listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
+listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
+listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
+listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
+listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
+listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
+listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
+listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
+listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
+listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
 listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
 listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
 listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
