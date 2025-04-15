@@ -1,11 +1,12 @@
 class Student {
-    constructor(id, group, firstName, lastName, gender, birthday) {
+    constructor(id, group, firstName, lastName, gender, birthday, status) {
         this.id = id;
         this.group = group;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.birthday = birthday;
+        this.status = status || "inactive";
     }
 }
 
@@ -13,42 +14,52 @@ let listOfStudents = [];
 let currentPage = 1;
 const studentsPerPage = 7;
 
-
-function updateStudentIds() {
-    listOfStudents.forEach((student, index) => {
-        student.id = index; // Оновлюємо ID відповідно до індексу
-    });
-}
-
-function addStudent(check) {
+async function addStudent(check) {
     if (!validateForm()) {
         if (check) {
-            window.alert("Please fill in all fields correctly!");
-            return;
+            alert("Please fill in all fields correctly!");
+        } else {
+            closeModal();
         }
-        else{
+        return;
+    }
+
+    const newStudent = {
+        group: document.getElementById("group").value,
+        firstName: document.getElementById("firstName").value,
+        lastName: document.getElementById("lastName").value,
+        gender: document.getElementById("gender").value,
+        birthday: document.getElementById("birthday").value,
+    };
+
+    try {
+        const response = await fetch("./students.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newStudent),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            // Якщо статус не 2xx — показуємо повідомлення з сервера
+            alert(result.error);
             closeModal();
             return;
         }
+
+        listOfStudents.push(new Student(result.id, result.group, result.firstName, result.lastName, result.gender, result.birthday));
+
+        updateTable();
+        closeModal();
+    } catch (error) {
+        alert("Помилка з'єднання з сервером. Спробуйте пізніше.");
+        console.error("Error adding student:", error);
     }
-
-    let group = document.getElementById("group").value;
-    let firstName = document.getElementById("firstName").value;
-    let lastName = document.getElementById("lastName").value;
-    let gender = document.getElementById("gender").value;
-    let birthday = document.getElementById("birthday").value;
-
-    let newStudent = new Student(listOfStudents.length, group, firstName, lastName, gender, birthday);
-    listOfStudents.push(newStudent);
-    updateStudentIds();
-
-    console.log("Student added:", newStudent);
-    console.log("Updated list:", listOfStudents);
-
-
-    updateTable();
-    closeModal();
 }
+
 
 function updateTable() {
     let table = document.getElementById("tableOfStudents");
@@ -117,9 +128,7 @@ function updateTable() {
         let statusTd = document.createElement("td");
         let statusDiv = document.createElement("div");
         statusDiv.classList.add("activeStatus");
-        if (`${student.firstName} ${student.lastName}` === profileStudentName) {
-            statusDiv.style.backgroundColor = "green";
-        }
+        statusDiv.style.backgroundColor = student.status === "active" ? "green" : "gray";
         statusTd.appendChild(statusDiv);
         row.appendChild(statusTd);
 
@@ -212,17 +221,22 @@ function openDeleteModal(idsToDelete) {
     document.getElementById("overlayDelete").style.display = "block";
 }
 
+async function confirmDelete(idsToDelete) {
+    try {
+        for (let id of idsToDelete) {
+            await fetch("./students.php", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `id=${id}`,
+            });
+        }
 
-function confirmDelete(idsToDelete) {
-    listOfStudents = listOfStudents.filter(student => !idsToDelete.includes(student.id.toString()));
-
-    console.log("Deleted student(s) IDs:", idsToDelete);
-    console.log("Updated list:", listOfStudents);
-
-
-    updateStudentIds();
-    updateTable();
-    closeDeleteModal();
+        listOfStudents = listOfStudents.filter(student => !idsToDelete.includes(student.id.toString()));
+        updateTable();
+        closeDeleteModal();
+    } catch (error) {
+        console.error("Error deleting student(s):", error);
+    }
 }
 
 function closeDeleteModal() {
@@ -271,39 +285,41 @@ function openModalForEdit(student) {
     document.getElementById("overlay").style.display = "block";
 }
 
-function saveStudent(id, check) {
+async function saveStudent(id, check) {
+    
     let student = listOfStudents.find(s => s.id === id);
     if (!student) return;
 
     if (!validateForm()) {
-        if (check) {
-            window.alert("Please fill in all fields correctly!");
-            return;
-        }
-        else{
-            closeModal();
-            return;
-        }
+        if (check) alert("Please fill in all fields correctly!");
+        else closeModal();
+        return;
     }
 
-    let group = document.getElementById("group").value;
-    let firstName = document.getElementById("firstName").value;
-    let lastName = document.getElementById("lastName").value;
-    let gender = document.getElementById("gender").value;
-    let birthday = document.getElementById("birthday").value;
+    const updatedStudent = {
+        id: id,
+        group: document.getElementById("group").value,
+        firstName: document.getElementById("firstName").value,
+        lastName: document.getElementById("lastName").value,
+        gender: document.getElementById("gender").value,
+        birthday: document.getElementById("birthday").value,
+    };
 
-    // Оновлюємо дані студента
-    student.group = group;
-    student.firstName = firstName;
-    student.lastName = lastName;
-    student.gender = gender;
-    student.birthday = birthday;
+    try {
+        await fetch("./students.php", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedStudent),
+        });
 
-    console.log("Student updated:", student);
-    console.log("Updated list:", listOfStudents);
+        const index = listOfStudents.findIndex(s => s.id === id);
+        listOfStudents[index] = new Student(id, updatedStudent.group, updatedStudent.firstName, updatedStudent.lastName, updatedStudent.gender, updatedStudent.birthday);
 
-    updateTable();
-    closeModal();
+        updateTable();
+        closeModal();
+    } catch (error) {
+        console.error("Error updating student:", error);
+    }
 }
 
 function closeModal() {
@@ -416,41 +432,65 @@ function updatePagination() {
       updateTable();
     };
     paginationContainer.appendChild(nextBtn);
-  }
+}
 
 
+// window.onload = async function () {
 
+//     try {
+//         const response = await fetch("./students.php");
+//         const data = await response.json();
+//         listOfStudents = data.map(s => new Student(s.id, s.group, s.firstName, s.lastName, s.gender, s.birthday));
+//         updateTable();
+//     } catch (error) {
+//         console.error("Failed to load students:", error);
+//     }
+//     // const loggedInId = localStorage.getItem("loggedStudent");
+//     // if(loggedInId !== null)
+//     // {
+        
+//     // }
+//     // else{
+//     //     document.getElementById("profile-menu__profile").style.display = "none";
+//     //     document.getElementById("openButtonAddModal").disabled = true;
+//     //     document.getElementById("new-message-bell").disabled = true;
+//     //     document.querySelectorAll(".menu-item").forEach(a => {
+//     //         a.disabled = true;
+//     //     });
+//     // }
+// }
 
+window.onload = async function () {
+    const loginBtn = document.getElementById("profile-menu__button");
+    
+    try {
+        const response = await fetch("./students.php");
+        if (!response.ok) {
+            if (response.status === 401) {
 
+                document.getElementById("openButtonAddModal").disabled = true;
+                document.getElementById("new-message-bell").disabled = true;
+                document.querySelector(".notification").classList.add("disabled");
+                document.getElementById("profile-menu__profile").style.display = "none";
+                document.querySelector(".profile-menu").style.height = "65px";
 
+                document.getElementById("profile-name").textContent = "Guest";
 
+                loginBtn.textContent = "Log In";
+                return;
+            }
+            throw new Error("Error while connecting to server");
+        }
 
+        const data = await response.json();
 
-listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-25", "Max", "Skydanchuk", "Male", "2006-04-07"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-24", "Nastya", "Storozhenko", "Female", "2006-10-19"));
-listOfStudents.push(new Student(listOfStudents.length, "PZ-23", "Marichka", "Cherkyn", "Female", "2006-06-17"));
-window.onload = function() {
-    updateStudentIds();
-    updateTable();
+        document.getElementById("profile-image").src = data.user_image || "images/default.png";
+        document.getElementById("profile-name").textContent = data.user_name || "Guest";
+
+        loginBtn.textContent = "Log Out";
+        listOfStudents = data.students.map(s => new Student(s.id, s.group, s.firstName, s.lastName, s.gender, s.birthday, s.status));
+        updateTable();
+    } catch (error) {
+        console.error("Failed to load students:", error);
+    }
 };

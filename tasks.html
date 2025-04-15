@@ -1,68 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Max Skydanchuk">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Max Skydanchuk" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
     <title>Students</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1 class="mainHeader"><a href="students.html">CMS</a></h1>
-        <div class="notification">
-            <a href="messages.html">
-                <img src="images/bell.png" alt="Bell Icon">
-                <div class="newMessages" id="circle"></div>
-            </a>
-            <div class="threeNewMessages">
-                <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
-                    <div class="message-content">
-                        <p class="username">User name</p>
-                        <p class="text">Text message</p>
-                    </div>
-                </div>
-                <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
-                    <div class="message-content">
-                        <p class="username">User name</p>
-                        <p class="text">Text message</p>
-                    </div>
-                </div>
-                <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
-                    <div class="message-content">
-                        <p class="username">User name</p>
-                        <p class="text">Text message</p>
-                    </div>
-                </div>
-            </div>            
-        </div>
-        <div class="profile">
-            <img src="images/avatar_max.jpg" alt="Avatar">
-            <p>Max Skydanchuk</p>
-            <div class="profile-menu">
-                <a href="#">Profile</a>
-                <button>Log out</button>
+      <h1 class="mainHeader"><a href="students.html">CMS</a></h1>
+      <div class="notification">
+        <a href="messages.html">
+          <img src="images/bell.png" alt="Bell Icon" />
+          <div class="newMessages" id="circle"></div>
+        </a>
+        <div class="threeNewMessages">
+          <div class="message">
+            <img src="images/default.png" class="avatar" alt="Avatar" />
+            <div class="message-content">
+              <p class="username">User name</p>
+              <p class="text">Text message</p>
             </div>
+          </div>
+          <div class="message">
+            <img src="images/default.png" class="avatar" alt="Avatar" />
+            <div class="message-content">
+              <p class="username">User name</p>
+              <p class="text">Text message</p>
+            </div>
+          </div>
+          <div class="message">
+            <img src="images/default.png" class="avatar" alt="Avatar" />
+            <div class="message-content">
+              <p class="username">User name</p>
+              <p class="text">Text message</p>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="profile">
+        <img src="images/default.png" alt="Avatar" id="profile-image"/>
+        <p id="profile-name"></p>
+        <div class="profile-menu">
+          <a href="profile.html" class="profile-menu__profile" id="profile-menu__profile"
+            >Profile</a
+          >
+          <button class="profile-menu__button" id="profile-menu__button">
+            Log in
+          </button>
+        </div>
+      </div>
+      <!-- Модальне вікно -->
+      <div class="login" id="registration-modal" style="display: none">
+        <div class="login__content">
+          <header class="login-header">
+            <h1 class="login-header__name">Log In</h1>
+            <button class="login-header__exit" aria-label="Закрити">x</button>
+          </header>
+          <div class="login__main">
+            <form id="registration-form" class="login-form">
+              <label for="username" class="login-form__label">Ім'я:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="login-form__input"
+                required
+              />
+              <label for="password" class="login-form__label">Пароль:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="login-form__input"
+                required
+              />
+            </form>
+          </div>
+          <footer class="login__footer">
+            <button
+              type="button"
+              class="login__disable"
+              id="cancel-button-login"
+            >
+              Cancel
+            </button>
+            <button type="button" class="login__active" id="ok-button-login">
+              Ok
+            </button>
+          </footer>
+        </div>
+      </div>
     </header>
     <button class="menu-btn" id="menuBtn">☰</button>
     <aside id="tasks" class="toggleMenu">
-        <nav>
-            <ul>
-                <li><a href="index.html">Dashboard</a></li>
-                <li><a href="students.html">Students</a></li>
-                <li><a href="tasks.html">Tasks</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="tasks.html">Tasks</a></li>
+        </ul>
+      </nav>
     </aside>
     <main>
-        <h1>Tasksk page</h1>
+      <h1>Tasksk page</h1>
     </main>
     <script src="js/main.js"></script>
-</body>
+  </body>
 </html>

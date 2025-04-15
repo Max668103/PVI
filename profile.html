@@ -42,10 +42,13 @@
         </div>
       </div>
       <div class="profile">
-        <img src="images/default.png" alt="Avatar" id="profile-image"/>
+        <img src="images/default.png" alt="Avatar" id="profile-image" />
         <p id="profile-name"></p>
         <div class="profile-menu">
-          <a href="profile.html" class="profile-menu__profile" id="profile-menu__profile"
+          <a
+            href="profile.html"
+            class="profile-menu__profile"
+            id="profile-menu__profile"
             >Profile</a
           >
           <button class="profile-menu__button" id="profile-menu__button">
@@ -96,7 +99,7 @@
       </div>
     </header>
     <button class="menu-btn" id="menuBtn">☰</button>
-    <aside id="message" class="toggleMenu">
+    <aside id="tasks" class="toggleMenu">
       <nav>
         <ul>
           <li><a href="index.html">Dashboard</a></li>
@@ -105,9 +108,27 @@
         </ul>
       </nav>
     </aside>
-    <main>
-      <h1>Messages page</h1>
+    <main class="user-profile">
+      <h1 class="user-profile__header">Profile</h1>
+      <div class="user-profile__image-container">
+        <img
+          src="images/default.png"
+          alt="User Avatar"
+          id="user-profile__image"
+          class="user-profile__image"
+        />
+        <input
+          type="file"
+          id="avatar-input"
+          accept="image/*"
+          class="user-profile__input"
+        />
+        <button onclick="uploadAvatar()" class="user-profile__change">
+          Upload Avatar
+        </button>
+      </div>
     </main>
     <script src="js/main.js"></script>
+    <script src="js/profile.js"></script>
   </body>
 </html>

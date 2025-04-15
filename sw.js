@@ -2,11 +2,11 @@
 const CACHE_NAME = "pwa-cache-v1";
 
 const ASSETS = [
-  `./`,                      
-  `./index.html`,
-  `./messages.html`,
-  `./students.html`,
-  `./tasks.html`,
+  // `./`,                      
+  // `./index.html`,
+  // `./messages.html`,
+  // `./students.html`,
+  // `./tasks.html`,
   
   // CSS файли
   `./css/main.css`,
@@ -17,7 +17,6 @@ const ASSETS = [
   `./js/main.js`,
   
   // Зображення
-  `./images/avatar_max.jpg`,
   `./images/bell.png`,
   `./images/cross.png`,
   `./images/pencil.png`,
@@ -45,16 +44,29 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+
+  // Не кешувати HTML і PHP
+  if (
+      url.pathname.endsWith('.html') ||
+      url.pathname.endsWith('.php') ||
+      url.pathname === '/'
+  ) {
+      event.respondWith(fetch(event.request)); // Завжди брати з сервера
+      return;
+  }
   event.respondWith(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.match(event.request).then((cachedResponse) => {
-        const networkFetch = fetch(event.request).then((networkResponse) => {
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
-        });
-        return cachedResponse || networkFetch;
-      });
-    })
+      caches.open(CACHE_NAME).then((cache) => {
+          return cache.match(event.request).then((cachedResponse) => {
+              const networkFetch = fetch(event.request).then((networkResponse) => {
+                  if (event.request.method === "GET") {
+                      cache.put(event.request, networkResponse.clone());
+                  }
+                  return networkResponse;
+              });
+              return cachedResponse || networkFetch;
+          });
+      })
   );
 });
 

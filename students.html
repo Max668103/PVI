@@ -1,170 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Max Skydanchuk">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/students.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="manifest" href="/manifest.json">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Max Skydanchuk" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/students.css" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="manifest" href="./manifest.json" />
 
     <title>Students</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1 class="mainHeader"><a href="students.html">CMS</a></h1>
-        <div class="notification">
-            <a href="messages.html">
-                <img src="images/bell.png" alt="Bell Icon">
-                <div class="newMessages" id="circle"></div>
-            </a>
-            <div class="threeNewMessages">
-                <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
-                    <div class="message-content">
-                        <p class="username">User name</p>
-                        <p class="text">Text message</p>
-                    </div>
-                </div>
-                <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
-                    <div class="message-content">
-                        <p class="username">User name</p>
-                        <p class="text">Text message</p>
-                    </div>
-                </div>
-                <div class="message">
-                    <img src="images/avatar_max.jpg" class="avatar" alt="Avatar">
-                    <div class="message-content">
-                        <p class="username">User name</p>
-                        <p class="text">Text message</p>
-                    </div>
-                </div>
-            </div>            
-        </div>
-        <div class="profile">
-            <img src="images/avatar_max.jpg" alt="Avatar">
-            <p>Max Skydanchuk</p>
-            <div class="profile-menu">
-                <a href="#">Profile</a>
-                <button>Log out</button>
+      <h1 class="mainHeader"><a href="students.html">CMS</a></h1>
+      <div class="notification">
+        <a href="messages.html" id="new-message-bell">
+          <img src="images/bell.png" alt="Bell Icon" />
+          <div class="newMessages" id="circle"></div>
+        </a>
+        <div class="threeNewMessages">
+          <div class="message">
+            <img src="images/default.png" class="avatar" alt="Avatar" />
+            <div class="message-content">
+              <p class="username">User name</p>
+              <p class="text">Text message</p>
             </div>
+          </div>
+          <div class="message">
+            <img src="images/default.png" class="avatar" alt="Avatar" />
+            <div class="message-content">
+              <p class="username">User name</p>
+              <p class="text">Text message</p>
+            </div>
+          </div>
+          <div class="message">
+            <img src="images/default.png" class="avatar" alt="Avatar" />
+            <div class="message-content">
+              <p class="username">User name</p>
+              <p class="text">Text message</p>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="profile">
+        <img src="images/default.png" alt="Avatar" id="profile-image"/>
+        <p id="profile-name"></p>
+        <div class="profile-menu">
+          <a href="profile.html" class="profile-menu__profile" id="profile-menu__profile"
+            >Profile</a
+          >
+          <button class="profile-menu__button" id="profile-menu__button">
+            Log in
+          </button>
+        </div>
+      </div>
+      <!-- Модальне вікно -->
+      <div class="login" id="registration-modal" style="display: none">
+        <div class="login__content">
+          <header class="login-header">
+            <h1 class="login-header__name">Log In</h1>
+            <button class="login-header__exit" aria-label="Закрити">x</button>
+          </header>
+          <div class="login__main">
+            <form id="registration-form" class="login-form">
+              <label for="username" class="login-form__label">Ім'я:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="login-form__input"
+                required
+              />
+              <label for="password" class="login-form__label">Пароль:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="login-form__input"
+                required
+              />
+            </form>
+          </div>
+          <footer class="login__footer">
+            <button type="button" class="login__disable" id="cancel-button-login">
+              Cancel
+            </button>
+            <button type="button" class="login__active" id="ok-button-login">
+              Ok
+            </button>
+          </footer>
+        </div>
+      </div>
     </header>
     <button class="menu-btn" id="menuBtn">☰</button>
     <aside id="students" class="toggleMenu">
-        <nav>
-            <ul>
-                <li><a href="index.html">Dashboard</a></li>
-                <li><a href="students.html">Students</a></li>
-                <li><a href="tasks.html">Tasks</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="menu-item">Dashboard</a></li>
+          <li><a href="students.html" class="menu-item">Students</a></li>
+          <li><a href="tasks.html" class="menu-item">Tasks</a></li>
+        </ul>
+      </nav>
     </aside>
     <main>
-        <h1>Students page</h1>
-        <div class="overlay" id="overlay" onclick="closeModal()"></div>
-        <div class="addStudent">
-            <button class="openButton" onclick="openModal()">+ Add student</button>
-            <div class="ModalWindow" id="myModal">
-                <form id="studentForm" onsubmit="return false;">
-                    <header>
-                        <h1 class="modalH">Add student</h1>
-                        <button type="button" class="buttonX" onclick="closeModal()">x</button>
-                    </header>
-                    <div class="body">
-                        <input type="hidden" id="studentId" name="studentId">
-        
-                        <label for="group">Group</label>
-                        <div class="input-container">
-                            <select id="group" name="group" required>
-                                <option value="">Select group</option>
-                                <option value="PZ-21">PZ-21</option>
-                                <option value="PZ-22">PZ-22</option>
-                                <option value="PZ-23">PZ-23</option>
-                                <option value="PZ-24">PZ-24</option>
-                                <option value="PZ-25">PZ-25</option>
-                                <option value="PZ-26">PZ-26</option>
-                            </select>
-                            <span class="error-message" id="group-error">Please select a group</span>
-                        </div>
+      <h1>Students page</h1>
+      <div class="overlay" id="overlay" onclick="closeModal()"></div>
+      <div class="addStudent">
+        <button
+          class="openButton"
+          id="openButtonAddModal"
+          onclick="openModal()"
+        >
+          + Add student
+        </button>
+        <div class="ModalWindow" id="myModal">
+          <form id="studentForm" onsubmit="return false;">
+            <header>
+              <h1 class="modalH">Add student</h1>
+              <button type="button" class="buttonX" onclick="closeModal()">
+                x
+              </button>
+            </header>
+            <div class="body">
+              <input type="hidden" id="studentId" name="studentId" />
 
-                        <label for="firstName">First name</label>
-                        <div class="input-container">
-                            <input type="text" id="firstName" name="firstName" required pattern="[A-Za-z]+" title="First name should only contain letters">
-                            <span class="error-message" id="firstName-error">First name should contain only letters</span>
-                        </div>
+              <label for="group">Group</label>
+              <div class="input-container">
+                <select id="group" name="group" required>
+                  <option value="">Select group</option>
+                  <option value="PZ-21">PZ-21</option>
+                  <option value="PZ-22">PZ-22</option>
+                  <option value="PZ-23">PZ-23</option>
+                  <option value="PZ-24">PZ-24</option>
+                  <option value="PZ-25">PZ-25</option>
+                  <option value="PZ-26">PZ-26</option>
+                </select>
+                <span class="error-message" id="group-error"
+                  >Please select a group</span
+                >
+              </div>
 
-                        <label for="lastName">Last name</label>
-                        <div class="input-container">
-                            <input type="text" id="lastName" name="lastName" required pattern="[A-Za-z]+" title="Last name should only contain letters">
-                            <span class="error-message" id="lastName-error">Last name should contain only letters</span>
-                        </div>
+              <label for="firstName">First name</label>
+              <div class="input-container">
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  required
+                  pattern="[A-Za-z]+"
+                  title="First name should only contain letters"
+                />
+                <span class="error-message" id="firstName-error"
+                  >First name should contain only letters</span
+                >
+              </div>
 
-                        <label for="gender">Gender</label>
-                        <div class="input-container">
-                            <select id="gender" name="gender" required>
-                                <option value="">Select gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                            <span class="error-message" id="gender-error">Please select a gender</span>
-                        </div>
+              <label for="lastName">Last name</label>
+              <div class="input-container">
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  required
+                  pattern="[A-Za-z]+"
+                  title="Last name should only contain letters"
+                />
+                <span class="error-message" id="lastName-error"
+                  >Last name should contain only letters</span
+                >
+              </div>
 
-                        <label for="birthday">Birthday</label>
-                        <div class="input-container">
-                            <input type="date" id="birthday" name="birthday" required>
-                            <span class="error-message" id="birthday-error">Please enter a valid date</span>
-                        </div>
-                    </div>
-                    <footer>
-                        <button type="button" class="disable" onclick="addStudent(false)">Ok</button>
-                        <button type="button" class="active" onclick="addStudent(true)">Create</button>
-                    </footer>
-                </form>
-            </div>            
-        </div>
-        <div class="overlay" id="overlayDelete" onclick="closeDeleteModal()"></div>
-        <div class="table">
-            <table id="tableOfStudents">
-                <tr>
-                    <th class="checkboxColumn">
-                        <label for="mainCheckbox" class="sr-only">Checkboxes</label>
-                        <input type="checkbox" id="mainCheckbox" onclick="checkAll()" title="Click All">
-                    </th>
-                    <th>Group</th>
-                    <th>Name</th>
-                    <th>Gender</th>
-                    <th>Birthday</th>
-                    <th>Status</th>
-                    <th>Options</th>
-                </tr>
-            </table>
-            <div class="modalWindowDelete" id="myModalDelete">
-                <header>
-                    <h1 class="modalH"> Delete student</h1>
-                    <button class="buttonX">x</button>
-                </header>
-                <div>
-                    <img src="images/warning-sign.png" alt="Warning">
-                    <p>Do you want to delete </p>
-                </div>
-                <footer>
-                    <button class="disable">Cancel</button>
-                    <button class="active">Ok</button>
-                </footer>
+              <label for="gender">Gender</label>
+              <div class="input-container">
+                <select id="gender" name="gender" required>
+                  <option value="">Select gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+                <span class="error-message" id="gender-error"
+                  >Please select a gender</span
+                >
+              </div>
+
+              <label for="birthday">Birthday</label>
+              <div class="input-container">
+                <input type="date" id="birthday" name="birthday" required />
+                <span class="error-message" id="birthday-error"
+                  >Please enter a valid date</span
+                >
+              </div>
             </div>
+            <footer>
+              <button type="button" class="disable" onclick="addStudent(false)">
+                Ok
+              </button>
+              <button type="button" class="active" onclick="addStudent(true)">
+                Create
+              </button>
+            </footer>
+          </form>
         </div>
-        <div class="pages">
-            <button class="arrow left">&laquo;</button>
-            <button class="page-number">1</button>
-            <button class="page-number">2</button>
-            <button class="page-number">3</button>
-            <button class="arrow right">&raquo;</button>
+      </div>
+      <div
+        class="overlay"
+        id="overlayDelete"
+        onclick="closeDeleteModal()"
+      ></div>
+      <div class="table">
+        <table id="tableOfStudents">
+          <tr>
+            <th class="checkboxColumn">
+              <label for="mainCheckbox" class="sr-only">Checkboxes</label>
+              <input
+                type="checkbox"
+                id="mainCheckbox"
+                onclick="checkAll()"
+                title="Click All"
+              />
+            </th>
+            <th>Group</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Birthday</th>
+            <th>Status</th>
+            <th>Options</th>
+          </tr>
+        </table>
+        <div class="modalWindowDelete" id="myModalDelete">
+          <header>
+            <h1 class="modalH">Delete student</h1>
+            <button class="buttonX">x</button>
+          </header>
+          <div>
+            <img src="images/warning-sign.png" alt="Warning" />
+            <p>Do you want to delete</p>
+          </div>
+          <footer>
+            <button class="disable">Cancel</button>
+            <button class="active">Ok</button>
+          </footer>
         </div>
+      </div>
+      <div class="pages">
+        <button class="arrow left">&laquo;</button>
+        <button class="page-number">1</button>
+        <button class="page-number">2</button>
+        <button class="page-number">3</button>
+        <button class="arrow right">&raquo;</button>
+      </div>
     </main>
-    <script src="js/students.js"></script>
     <script src="js/main.js"></script>
-</body>
+    <script src="js/students.js"></script>
+  </body>
 </html>
